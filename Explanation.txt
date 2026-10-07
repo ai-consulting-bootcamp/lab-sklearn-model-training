@@ -1,0 +1,66 @@
+Telco Customer Churn Prediction with KNN
+
+Summary of the Approach
+
+The goal of this project was to build a K-Nearest Neighbors (KNN) classification model to predict whether a customer is likely to churn.
+
+I first loaded and explored the Telco Customer Churn dataset using pandas. One of the first problems I encountered was the file format. The file had an .xls extension, 
+so I initially tried to load it as an Excel file. This resulted in an error because the file was actually formatted like a CSV file. I therefore corrected the loading process 
+and used pd.read_csv() instead.
+
+After loading the data, I explored the shape, columns, data types, basic statistics, missing values, and the distribution of the target variable Churn. At first, pandas 
+did not report any missing values. However, the TotalCharges column was stored as text because some rows contained empty values. I converted this column to numeric using 
+pd.to_numeric(..., errors="coerce"). This revealed 11 missing values, which I removed from the dataset.
+
+The target variable Churn contained the values Yes and No. I converted these into binary values, where 0 represents no churn and 1 represents churn. I also removed customerID 
+from the model features because the customer ID itself does not provide useful information for predicting churn.
+
+The dataset also contained several categorical variables, such as contract type, internet service, and payment method. Since KNN requires numerical input, I converted these 
+variables using pd.get_dummies().
+
+The data was then split into 80% training data and 20% test data. I used stratify=y to keep a similar churn distribution in both datasets and random_state=42 to make the 
+split reproducible.
+
+Before training the KNN model, I standardized the features using StandardScaler. This was important because KNN calculates distances between observations. Without scaling, 
+variables with larger numerical values, such as TotalCharges, could have too much influence on the model.
+
+Model Performance
+I first trained the KNN model using K=5. The model achieved a training accuracy of approximately 83.5% and a test accuracy of approximately 75.3%. The difference between 
+training and test accuracy suggested that the model could be slightly overfitting the training data.
+
+I then tested different K values: 1, 3, 5, 7, 9, 11, and 15. The best results were found around K values of 9 to 15.
+
+For K=9, the model achieved approximately:
+- Accuracy: 76.6%
+- Precision: 56.1%
+- Recall: 55.3%
+
+Although K=15 produced a slightly higher accuracy of about 77.1%, I selected K=9 because it had the highest recall among the stronger-performing models. In a churn 
+prediction problem, recall is important because it shows how many of the customers who actually churn are correctly identified.
+
+Key Findings About Customer Churn
+The analysis showed that churn can be predicted to some extent using the available customer information. However, the model is much better at identifying customers 
+who do not churn than customers who do churn.
+
+The recall of around 55% means that the model identifies slightly more than half of the actual churn cases. This also means that a significant number of customers 
+who eventually churn are still missed by the model.
+
+The feature distributions also showed differences between customers who churn and customers who stay. For example, churned customers tend to have a shorter customer 
+tenure and higher monthly charges. These variables therefore appear to be relevant when analysing customer churn.
+
+Business Recommendations
+A recommendation for the company would be to focus on customers with a high predicted churn risk. The model can be used to identify groups of customers that are 
+more similar to previous customers who churned.
+
+These customers could then be investigated more closely and potentially targeted with retention measures. The analysis also suggests that customers with shorter 
+tenure and higher monthly charges may be especially relevant groups to monitor.
+
+Limitations and Future Improvements
+One limitation of the model is that, although its overall accuracy is around 77%, its recall is only around 55%. This means that almost half of the actual churn 
+cases are not detected.
+
+Another limitation is that KNN does not directly explain which individual features are most important for a prediction. It is therefore more difficult to interpret 
+than some other classification models.
+
+A future improvement would be to compare KNN with other classification algorithms, for example logistic regression or decision tree-based models. These models could 
+potentially improve the prediction performance and may also make it easier to understand which customer characteristics are most strongly related to churn.
