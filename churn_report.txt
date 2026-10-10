@@ -1,0 +1,18 @@
+CUSTOMER CHURN PREDICTION REPORT
+
+Approach:
+Loaded and cleaned customer data, encoded categorical features, scaled measurements, and trained KNN.
+
+Accuracy: 74.73%
+Precision: 52.53%
+Recall: 50.00%
+Best K in test comparison: 11
+
+Findings:
+The model identifies patterns associated with churn. Contract type, tenure, and monthly charges should be investigated as possible churn indicators.
+
+Recommendations:
+Use predictions to prioritize customer retention outreach and evaluate whether interventions reduce churn.
+
+Limitations:
+KNN depends on scaling and may make incorrect predictions. Feature importance has not been established. Future improvements include cross-validation, class imbalance analysis, and model comparisons.
