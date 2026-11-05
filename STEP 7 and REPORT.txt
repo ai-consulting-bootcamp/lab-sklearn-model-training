@@ -1,0 +1,21 @@
+STEP 7 / REPORT
+Summary of Approach
+Used a 80/20 train/test split on 7,000+ records whilst converting empty cells to the median for financial data and strings to numerics to allow my KNN model to run. I used K=5 as my starting point and also evaluated the industry  standard k1-15 to get a feel for accuracy across various inputs. 
+Model Performance
+The baseline of K=5 returned:
+Accuracy:  %76.79
+Precision: %57.70
+Recall:    %47.06
+Confusion Matrix:
+[[906 129]
+ [198 176]]
+The model is showing an accuracy of 76%, which seems like a reasonable level for prediction. However, its low recall of 47% for the churn class means it is missing alot clients who are leaving. This may be because as shown in step 3:  
+Retained (0): 1035 (73.5%)
+Churned (1): 374 (26.5%)
+There are 3 times as many retained rows compared to churned. I may need to increase my k value for this data set. The confusion matrix drives home that this model is not bad a telling me who will stay, but quite poor at telling me who will churn.
+Key Findings
+In step we isolated the features of tenure, monthly charges, and total charges to try and understand the relationship between the amount spent by the clients relationship with their tenue (time retained before discontinuing). We attempted to use a standard scaler in order improve the accuracy of the distance based calculations. 
+Business Recommendations?
+Because the model is not accurate for predicting churn,  but it does show some accuracy in clients that can be retained, it gives an indication into how funds should be allocated. In may be a poor use of funds to offer expensive retainment strategies, such as heavy discounts, to churn candidates because their actions and reasons for churn are unpredictable.  Instead, you can make efforts to retain through low cost strategies such as automated emailing at time gated moments in their tenure (e.g. 1 month, 3 months and 6 months) offering customer satisfaction surveys to accrue more data from these types of clients to better improve model accuracy in the future.  
+Limitations
+I believe my selection criteria for analysing churn was an issue here with other features such as contract type may have provided more interesting discovery. The dataset itself also has a major imbalance of almost 75/25 so it would take a few iterations of this type of work to find the best use metrics to improve recall for churned clients.
