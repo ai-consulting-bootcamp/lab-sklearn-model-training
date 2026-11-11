@@ -1,6 +1,6 @@
 """
 Breast Cancer Prediction with KNN
-Author: [Your Name]
+Author: Rita Sousa
 Description: Predict whether a breast tumor is malignant or benign using KNN
 """
  
