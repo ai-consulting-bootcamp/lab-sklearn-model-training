@@ -214,3 +214,37 @@ plt.tight_layout()
 plt.savefig("churn_knn_comparison.png", dpi=150, bbox_inches="tight")
 print("\nSaved visualization to 'churn_knn_comparison.png'")
 plt.show()
+
+# Step 7: Analysis and recommendations
+print("\n" + "=" * 60)
+print("STEP 7: ANALYSIS AND RECOMMENDATIONS")
+print("=" * 60)
+
+churn_rate_by_contract = (
+    df.groupby("Contract")["Churn"]
+    .apply(lambda values: (values == "Yes").mean())
+    .sort_values(ascending=False)
+)
+
+print(f"Accuracy of the selected KNN model (k=11): {accuracy_score(y_test, y_pred):.2%}")
+print(f"Churn precision: {precision_score(y_test, y_pred, pos_label=1):.2%}")
+print(f"Churn recall: {recall_score(y_test, y_pred, pos_label=1):.2%}")
+
+print("\nChurn rate by contract type:")
+print((churn_rate_by_contract * 100).round(2).astype(str) + "%")
+print(
+    "\nMost relevant observed feature: contract type. "
+    "Month-to-month customers have the highest churn rate."
+)
+
+print(
+    "\nRecommendation: prioritize retention offers for month-to-month customers. "
+    "Before using this model operationally, try to improve churn recall, "
+    "because the current model misses some customers who will churn."
+)
+
+print(
+    "\nLimitations: the target is imbalanced, results use one train/test split, "
+    "and only KNN with a limited set of k values was evaluated. "
+    "The observed contract association does not prove that contract type causes churn."
+)
