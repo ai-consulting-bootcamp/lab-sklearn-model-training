@@ -1,0 +1,23 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter files
+.ipynb_checkpoints/
+
+# Generated model outputs
+outputs/
+*.log
+
+# Local datasets
+data/*.csv
+
+# Operating-system files
+.DS_Store
+Thumbs.db
